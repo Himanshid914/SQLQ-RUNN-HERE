@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+### SQLQRUNN
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 1. Overview
 
-## Available Scripts
+The Query Runner application is a web-based SQL query execution tool that allows users to run predefined and custom queries on CSV-based datasets (Orders and Customers). It provides functionalities such as filtering, sorting, aggregation, joining, and exporting query results.
 
-In the project directory, you can run:
+### 2. Data
+The Orders and Customers datasets used in this application are sourced from the Northwind dataset available at:
+[Northwind CSV Data](https://github.com/graphql-compose/graphql-compose-examples/tree/master/examples/northwind/data/csv)
 
-### `npm start`
+### 3. Features Implemented
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Predefined Queries: Run common SQL queries with a single click.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Custom Query Execution: Users can input and execute their own SQL queries.
 
-### `npm test`
+Query History: Stores the last five executed queries.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Sorting and Filtering: Users can sort and filter results using SQL ORDER BY and WHERE clauses.
 
-### `npm run build`
+Aggregation Functions: Supports COUNT, SUM, AVG, MIN, and MAX functions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Joins: Implements inner joins between orders and customers.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Pagination: Displays results in a paginated manner.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+CSV Parsing: Fetches data from CSV files.
 
-### `npm run eject`
+Export to CSV: Users can download query results.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Query Builder: Provides a UI for query construction.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 4. Application Architecture
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Built with React.js
 
-## Learn More
+Manages state using useState and useEffect hooks
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Handles query execution and parsing logic
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Backend (Optional for future expansion):
 
-### Code Splitting
+Can be implemented using Node.js with Express.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Can integrate with databases like PostgreSQL or MySQL for real-time querying
 
-### Analyzing the Bundle Size
+### 5. Entity-Relationship (ER) Diagram
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![alt text](<src/ER diagram.png>)
 
-### Making a Progressive Web App
+The customers table stores customer details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The orders table stores order details and references customerID from customers.
 
-### Advanced Configuration
+### 6. How the Application Works
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Data Loading: Orders and Customers data are loaded from CSV files using PapaParse.
 
-### Deployment
+Query Execution: Users can select predefined queries or enter custom SQL-like queries.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Filtering & Sorting: The application parses WHERE, ORDER BY, and GROUP BY clauses.
 
-### `npm run build` fails to minify
+Aggregation: Functions like SUM, COUNT, AVG, etc., are processed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Join Execution: Queries involving multiple tables (JOIN) are handled by merging datasets.
+
+Results Display & Export: Results are displayed in a table format with pagination and an option to export as CSV.
+
+### 7. Query Execution Flow
+
+The user selects or enters a query.
+
+The application determines which dataset (orders/customers) to use.
+
+The query is parsed to extract conditions, sorting, grouping, and aggregation operations.
+
+The results are generated and displayed.
+
+Users can download the result as a CSV file.
+
+### 8. Tech Stack
+
+Frontend: React.js, JavaScript, HTML, CSS
+
+State Management: React Hooks (useState, useEffect)
+
+Data Handling: PapaParse (CSV Parsing)
+
+Export Feature: FileSaver.js
+
+Future Enhancements: Backend integration with Node.js and SQL database
+
+### 9. Application UI Layout
+
+Navigation Bar (Select predefined queries, input custom queries)
+
+Query Input Section (Text area for query entry, Run button)
+
+Query Results Table (Displays executed query results with pagination)
+
+Export Button (Download query results as CSV)
+
+Query History Panel (Shows last executed queries)
+
+Query Builder Modal (Helps users construct queries visually)
+
+### 10. Sample Queries and Execution
+
+## Basic Queries:
+
+SELECT * FROM orders;
+SELECT * FROM customers WHERE country = 'France';
+
+## Sorting Queries:
+
+SELECT * FROM orders ORDER BY orderDate DESC;
+
+## Aggregation Queries:
+
+SELECT COUNT(*) FROM customers;
+SELECT SUM(freight) FROM orders;
+
+## Join Queries:
+
+SELECT orders.*, customers.companyName FROM orders JOIN customers ON orders.customerID = customers.customerID;
+
+
+### 11. Outlook and Future Improvements
+
+Database Integration: Transition from CSV to SQL database for scalability.
+
+Advanced Query Parsing: Improve query interpretation using a SQL parsing library.
+
+User Authentication: Implement login for query history tracking.
+
+More Query Features: Implement DELETE, UPDATE, and INSERT operations.
+
