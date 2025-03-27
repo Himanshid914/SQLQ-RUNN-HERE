@@ -265,21 +265,6 @@ export default function QueryRunner() {
         setResult(sortedData);
       };
     
-
-      // const openCreateQueryWindow = () => {
-      //   const queryWindow = window.open(
-      //     "/create-query",
-      //     "CreateQuery",
-      //     "width=800,height=600"
-      //   );
-    
-      //   window.addEventListener("message", (event) => {
-      //     if (event.data && event.data.type === "QUERY_GENERATED") {
-      //       setQuery(event.data.query);
-      //     }
-      //   });
-      // };
-    
       // Export functions
       const exportToCSV = () => {
         const csv = Papa.unparse(result);
@@ -298,7 +283,7 @@ export default function QueryRunner() {
       const visibleFields = allFields.slice(currentFieldIndex, currentFieldIndex + fieldsPerView);
     
   return (
-    <div><h1 className="text-xl font-bold">SQLQ RUNN</h1>
+    <div><h1 className="text-xl font-bold ">SQLQ RUNN</h1>
 
     <div className="p-4">
       <h3 className="text-lg font-semibold mb-2 ">Common predefined queries </h3>

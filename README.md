@@ -135,4 +135,3 @@ Advanced Query Parsing: Improve query interpretation using a SQL parsing library
 User Authentication: Implement login for query history tracking.
 
 More Query Features: Implement DELETE, UPDATE, and INSERT operations.
-
