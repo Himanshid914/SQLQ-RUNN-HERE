@@ -52,9 +52,9 @@ export default function QueryRunner() {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
   const [showQueryBuilder, setShowQueryBuilder] = useState(false);
-  const [queryHistory, setQueryHistory] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [data, setData]= useState([]);
+  const [history, setHistory] = useState({}); // Stores queries with execution counts
+  const HISTORY_LIMIT = 5;
   const rowsPerPage = 10;
   const fieldsPerView = 4;
 
@@ -230,22 +230,25 @@ export default function QueryRunner() {
       });
     }
 
-    if (query.trim() === "") return;
-
-    setQueryHistory((prev) => {
-      const updatedHistory = [query, ...prev.filter((q) => q !== query)];
-      return updatedHistory.slice(0, MAX_HISTORY);
+    // Update history
+    setHistory((prevHistory) => {
+      const newHistory = { ...prevHistory };
+      if (newHistory[query]) {
+        newHistory[query] += 1;
+      } else {
+        if (Object.keys(newHistory).length >= HISTORY_LIMIT) {
+          const oldestKey = Object.keys(newHistory)[0];
+          delete newHistory[oldestKey];
+        }
+        newHistory[query] = 1;
+      }
+      return newHistory;
     });
-
     setQuery("");
     setResult(filteredData.length > 0 ? filteredData : []);
     setCurrentPage(1);
     setCurrentFieldIndex(0);
-  };
-
-  const handleSuggestionClick = (suggestedQuery) => {
-    setQuery(suggestedQuery);
-    setShowSuggestions(false);
+    
   };
 
   const handleSearch = (e) => {
@@ -306,31 +309,30 @@ export default function QueryRunner() {
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
-          setShowSuggestions(e.target.value.length > 0);
         }}
         placeholder="Enter your query..."
         rows={4}
-        style={{ width: "100%", padding: "10px" }}
+        // style={{ width: "100%", padding: "10px" }}
       />
-      {showSuggestions && queryHistory.length > 0 && (
-        <ul style={{ border: "1px solid #ccc", padding: "5px", listStyle: "none" }}>
-          {queryHistory
-            .filter((q) => q.toLowerCase().includes(query.toLowerCase()))
-            .map((q, index) => (
-              <li
-                key={index}
-                onClick={() => handleSuggestionClick(q)}
-                style={{ cursor: "pointer", padding: "5px" }}
-              >
-                {q}
-              </li>
-            ))}
-        </ul>
+      {query && (
+        <button className="clear-btn" onClick={() => setQuery("")}>
+          clear ✖
+        </button>
       )}
+    
       <button className="bg-blue-500 text-white p-2 mt-2 w-full" onClick={handleRunQuery}>
         Run Query
       </button>
 
+      <h3>Query History</h3>
+      <ol>
+        {Object.entries(history).map(([q, count]) => (
+          <li key={q} 
+          onClick={() => setQuery(q)}>
+            {q} (Executed {count} times)
+          </li>
+        ))}
+      </ol>
       {paginatedData.length > 0 && (
         <>
           <div className="table-controls">
@@ -349,8 +351,7 @@ export default function QueryRunner() {
         value={searchTerm}
         onChange={handleSearch}
       />
-      
-            <button onClick={exportToCSV}>
+      <button onClick={exportToCSV}>
         Export ↓
       </button>
           </div>
@@ -393,3 +394,4 @@ export default function QueryRunner() {
     </div>
   );
 }
+

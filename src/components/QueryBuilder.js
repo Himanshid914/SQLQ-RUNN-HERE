@@ -62,74 +62,91 @@ const QueryBuilder = ({onClose}) => {
   }
 
   return (
-    <Box p={3} gap={2} mt={2}>
-      <Button onClick={onClose} >
-        ❌ 
-      </Button>
-      <Typography variant="h5">Generate Your Query </Typography>
-      <FormControl fullWidth>
-        <InputLabel>Table</InputLabel>
-        <Select value={selectedTable} onChange={(e) => setSelectedTable(e.target.value)}>
-          <MenuItem value="orders">Orders</MenuItem>
-          <MenuItem value="customers">Customers</MenuItem>
-        </Select>
-      </FormControl>
-      
-      {selectedTable && (
-        <Box>
-          <Typography>Select Columns:</Typography>
-          {tables[selectedTable].map(col => (
-            <FormControlLabel
-              key={col}
-              control={<Checkbox checked={selectedColumns.includes(col)} onChange={() => handleColumnChange(col)} />}
-              label={col}
-            />
-          ))}
-        </Box>
-      )}
-      
-      <Button onClick={handleAddCondition}>Add Condition</Button>
-      {conditions.map((condition, index) => (
-        <Box key={index} display="flex" gap={1}>
-          <TextField label="Column" value={condition.column} onChange={(e) => {
+    <div className="query-builder">
+    <button className="close-btn" onClick={onClose}>❌</button>
+    <h2>Generate Your Query</h2>
+
+    <FormControl fullWidth>
+      <InputLabel >Table</InputLabel>
+      <Select
+        value={selectedTable}
+        onChange={(e) => setSelectedTable(e.target.value)}
+      >
+        <MenuItem value="orders">Orders</MenuItem>
+        <MenuItem value="customers">Customers</MenuItem>
+      </Select>
+    </FormControl>
+
+    {selectedTable && (
+      <div>
+        <Typography>Select Columns:</Typography>
+        {tables[selectedTable].map((col) => (
+          <FormControlLabel
+            key={col}
+            control={
+              <Checkbox
+                checked={selectedColumns.includes(col)}
+                onChange={() => handleColumnChange(col)}
+              />
+            }
+            label={col}
+          />
+        ))}
+      </div>
+    )}
+
+    <button className="add-condition-btn" onClick={handleAddCondition} style={{ marginBottom: '12px', marginTop: '12px'}}>
+      Add Condition
+    </button>
+
+    {conditions.map((condition, index) => (
+      <div className="condition-row" key={index}>
+        <TextField
+          label="Column"
+          value={condition.column}
+          onChange={(e) => {
             const newConditions = [...conditions];
             newConditions[index].column = e.target.value;
             setConditions(newConditions);
-          }} />
-          <Select value={condition.operator} onChange={(e) => {
+          }}
+        />
+        <Select
+          value={condition.operator}
+          onChange={(e) => {
             const newConditions = [...conditions];
             newConditions[index].operator = e.target.value;
             setConditions(newConditions);
-          }}>
-            <MenuItem value="=">=</MenuItem>
-            <MenuItem value=">">&gt;</MenuItem>
-            <MenuItem value="<">&lt;</MenuItem>
-          </Select>
-          <TextField label="Value" value={condition.value} onChange={(e) => {
+          }}
+        >
+          <MenuItem value="=">=</MenuItem>
+          <MenuItem value=">">&gt;</MenuItem>
+          <MenuItem value="<">&lt;</MenuItem>
+        </Select>
+        <TextField
+          label="Value"
+          value={condition.value}
+          onChange={(e) => {
             const newConditions = [...conditions];
             newConditions[index].value = e.target.value;
             setConditions(newConditions);
-          }} />
-        </Box>
-      ))}
-      
-      <TextField fullWidth label="Order By" value={orderBy} onChange={(e) => setOrderBy(e.target.value)} />
-      <TextField fullWidth label="Limit" value={limit} onChange={(e) => setLimit(e.target.value)} />
-      <TextField fullWidth label="Join Table" value={joinTable} onChange={(e) => setJoinTable(e.target.value)} />
-      <TextField fullWidth label="Join Condition" value={joinCondition} onChange={(e) => setJoinCondition(e.target.value)} />
-      <TextField fullWidth label="Group By" value={groupBy} onChange={(e) => setGroupBy(e.target.value)} />
-      <TextField fullWidth label="Aggregation (SUM, AVG, etc.)" value={aggregation} onChange={(e) => setAggregation(e.target.value)} />
-      
-      <Button onClick={handleGenerateQuery}>Generate Query</Button>
-      <TextField
-        fullWidth
-        multiline
-        label="Generated SQL Query"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-    </Box>
-  );
+          }}
+        />
+      </div>
+    ))}
+
+    <TextField fullWidth label="Order By" value={orderBy} onChange={(e) => setOrderBy(e.target.value)}  style={{ marginBottom: '12px' }}/>
+    <TextField fullWidth label="Limit" value={limit} onChange={(e) => setLimit(e.target.value)} style={{ marginBottom: '12px' }}/>
+    <TextField fullWidth label="Join Table" value={joinTable} onChange={(e) => setJoinTable(e.target.value)}style={{ marginBottom: '12px' }} />
+    <TextField fullWidth label="Join Condition" value={joinCondition} onChange={(e) => setJoinCondition(e.target.value)} style={{ marginBottom: '12px' }} />
+    <TextField fullWidth label="Group By" value={groupBy} onChange={(e) => setGroupBy(e.target.value)} style={{ marginBottom: '12px' }}/>
+    <TextField fullWidth label="Aggregation (SUM, AVG, etc.)" value={aggregation} onChange={(e) => setAggregation(e.target.value)} style={{ marginBottom: '12px' }}/>
+
+    <button className="generate-query-btn" onClick={handleGenerateQuery} style={{ marginBottom: '12px' }}>
+      Generate Query
+    </button>
+    <TextField fullWidth multiline label="Generated SQL Query" value={query} onChange={(e) => setQuery(e.target.value)} style={{ marginBottom: '12px' }} />
+  </div>
+);
 };
 
 export default QueryBuilder;

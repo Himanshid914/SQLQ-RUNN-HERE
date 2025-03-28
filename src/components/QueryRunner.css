@@ -11,19 +11,28 @@
   
   h1 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: #323131;
   }
-  
+  h3 {
+    text-align: left;
+    margin-bottom: 5px;
+    color: #323131;
+  }
   /* Dropdown and Textarea */
   select, textarea {
-    width: 100%;
+    align-items: left;
+    width: 80%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
     margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
   }
+  
   
   /* Buttons */
   button {
@@ -33,10 +42,18 @@
     border-radius: 5px;
     padding: 8px 15px;
     transition: 0.3s;
+    background-color: #ae63eb ;
   }
-  
+  .clear-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: red;
+  }
+
   .bg-blue-500 {
-    background: #0f561b;
+    background: #28a745;
     color: white;
   }
   
@@ -111,6 +128,8 @@
     font-weight: 500;
     padding: 10px;
     border-radius: 6px;
+    margin-left: 10px;
+    margin-right: 20px;
     transition: background 0.2s ease-in-out;
   }
   
@@ -118,6 +137,36 @@
     background-color: #218838;
   }
 
+ol{
+  background: rgb(255, 251, 251);
+  border: 1px solid #d1d0d0;
+}
+li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+li:hover {
+  background: #e4e0e0;
+}
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+thead th {
+  background:#a475dd;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
 
   /* Table Styles */
   table {
@@ -141,6 +190,21 @@
     background: #f2f2f2;
   }
   
+  /* Pagination controls */
+.pagination-controls, .table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Search input */
+input[type="text"] {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
   /* Pagination */
   .pagination-controls {
     display: flex;
