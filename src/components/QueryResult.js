@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect  } from "react";
 import { QueryContext } from "../context/QueryContext";
-import QueryResultStyles from "../style/QueryResultStyles.css"
+import  "../style/QueryResultStyles.css"
 
 const QueryResult = () => {
   const { queryResult } = useContext(QueryContext);
@@ -23,17 +23,16 @@ const isArrayResult = Array.isArray(queryResult) && queryResult.length > 0;
     const isObjectResult = !Array.isArray(queryResult) && queryResult !== null;
 
 
-  // 🔍 Apply search filter
+  // Apply search filter
   const filteredData = queryResult.filter((row) =>
     Object.values(row).some((val) => val?.toString().toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  // 🔄 Sorting logic
+  // Sorting logic
   const sortedData = [...filteredData].sort((a, b) => {
     if (!sortColumn) return 0;
     let valA = a[sortColumn], valB = b[sortColumn];
 
-    // Convert to numbers if possible
     if (!isNaN(valA) && !isNaN(valB)) {
       valA = Number(valA);
       valB = Number(valB);
@@ -42,26 +41,25 @@ const isArrayResult = Array.isArray(queryResult) && queryResult.length > 0;
     return sortOrder === "asc" ? (valA > valB ? 1 : -1) : (valA < valB ? 1 : -1);
   });
 
-  // 📜 Paginate rows
+  //  Paginate rows
   const displayedRows = sortedData.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   
-  // 📜 Paginate columns
+  // Paginate columns
   const allColumns = Object.keys(queryResult[0]);
   const displayedColumns = allColumns.slice(colPage * colsPerPage, (colPage + 1) * colsPerPage);
 
-  // 🔄 Handle sorting
+  // Handle sorting
   const handleSort = (col) => {
     setSortOrder(sortColumn === col ? (sortOrder === "asc" ? "desc" : "asc") : "asc");
     setSortColumn(col);
   };
-// 📥 Export displayed data as CSV
+
+// Export displayed data as CSV
 const exportToCSV = () => {
   let csvContent = "data:text/csv;charset=utf-8,";
 
-  // Add headers
   csvContent += displayedColumns.join(",") + "\n";
 
-  // Add rows
   displayedRows.forEach((row) => {
     csvContent += displayedColumns.map((col) => `"${row[col]}"`).join(",") + "\n";
   });

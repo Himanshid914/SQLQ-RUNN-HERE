@@ -2,17 +2,42 @@
 
 ### 1. Overview
 
-The Query Runner application is a web-based SQL query execution tool that allows users to run predefined and custom queries on CSV-based datasets (Orders and Customers). It provides functionalities such as filtering, sorting, aggregation, joining, and exporting query results.
+The SQLQ RUNN system is a web-based tool designed to allow users to run predefined, custom queries and  generate queries on CSV-based datasets (like we have orders dataset which have ordersId, customerID, shipCountry, shipCity, etc). It provides features such as a query selector, query editor, query history, query generator, search and sorting within results, pagination, and data export. The system supports real-time query execution and filtering on a sample dataset loaded from a CSV file.
+
 
 ### 2. Data
-The Orders and Customers datasets used in this application are sourced from the Northwind dataset available at:
+The Orders dataset used in this application are sourced from the Northwind dataset available at:
 [Northwind CSV Data](https://github.com/graphql-compose/graphql-compose-examples/tree/master/examples/northwind/data/csv)
 
-### 3. Features Implemented
+### 3. Page Load Time
 
-Predefined Queries: Run common SQL queries with a single click.
+Measured Load Time: 0.53s
+![alt text](src/LoadTime.png)
+Measurement Tool: Page Load Time Chrome Extension
 
-Custom Query Execution: Users can input and execute their own SQL queries.
+### 4. Entity-Relationship (ER) Diagram
+
+![alt text](src/ER_Diagram.png)
+
+The orders table stores order details.
+
+### 5. Tech Stack
+
+Frontend: React.js, JavaScript, HTML, CSS
+
+State Management: React Hooks (useState, useEffect)
+
+Data Handling: PapaParse (CSV Parsing)
+
+Export Feature: FileSaver.js
+
+Future Enhancements: Backend integration with Node.js and SQL database
+
+### 6. Features Implemented
+
+Predefined Queries(Query Selector): Run common SQL queries with a single click.
+
+Custom Query Execution(Query Editor): Users can input and execute their own SQL queries.
 
 Query History: Stores the last five executed queries.
 
@@ -20,40 +45,15 @@ Sorting and Filtering: Users can sort and filter results using SQL ORDER BY and 
 
 Aggregation Functions: Supports COUNT, SUM, AVG, MIN, and MAX functions.
 
-Joins: Implements inner joins between orders and customers.
-
 Pagination: Displays results in a paginated manner.
 
 CSV Parsing: Fetches data from CSV files.
 
 Export to CSV: Users can download query results.
 
-Query Builder: Provides a UI for query construction.
+Query Generator: Provides a UI for query construction.
 
-### 4. Application Architecture
-
-
-Built with React.js
-
-Manages state using useState and useEffect hooks
-
-Handles query execution and parsing logic
-
-Backend (Optional for future expansion):
-
-Can be implemented using Node.js with Express.js
-
-Can integrate with databases like PostgreSQL or MySQL for real-time querying
-
-### 5. Entity-Relationship (ER) Diagram
-
-![alt text](<src/ER diagram.png>)
-
-The customers table stores customer details.
-
-The orders table stores order details and references customerID from customers.
-
-### 6. How the Application Works
+### 7. How the Application Works
 
 Data Loading: Orders and Customers data are loaded from CSV files using PapaParse.
 
@@ -63,11 +63,9 @@ Filtering & Sorting: The application parses WHERE, ORDER BY, and GROUP BY clause
 
 Aggregation: Functions like SUM, COUNT, AVG, etc., are processed.
 
-Join Execution: Queries involving multiple tables (JOIN) are handled by merging datasets.
-
 Results Display & Export: Results are displayed in a table format with pagination and an option to export as CSV.
 
-### 7. Query Execution Flow
+### 8. Query Execution Flow
 
 The user selects or enters a query.
 
@@ -79,17 +77,6 @@ The results are generated and displayed.
 
 Users can download the result as a CSV file.
 
-### 8. Tech Stack
-
-Frontend: React.js, JavaScript, HTML, CSS
-
-State Management: React Hooks (useState, useEffect)
-
-Data Handling: PapaParse (CSV Parsing)
-
-Export Feature: FileSaver.js
-
-Future Enhancements: Backend integration with Node.js and SQL database
 
 ### 9. Application UI Layout
 
@@ -105,33 +92,25 @@ Query History Panel (Shows last executed queries)
 
 Query Builder Modal (Helps users construct queries visually)
 
-### 10. Sample Queries and Execution
-
-## Basic Queries:
+### 11. Sample Queries and Execution
 
 SELECT * FROM orders;
-SELECT * FROM customers WHERE country = 'France';
+SELECT * FROM orders WHERE shipCountry = 'France';
 
-## Sorting Queries:
+### 12. Installation & Setup
 
-SELECT * FROM orders ORDER BY orderDate DESC;
+1. Clone the repository:
 
-## Aggregation Queries:
+### git clone https://github.com/Himanshid914/SQLQ-RUNN-HERE.git
+### cd query-runner-application
 
-SELECT COUNT(*) FROM customers;
-SELECT SUM(freight) FROM orders;
+1. Install dependencies:
 
-## Join Queries:
+### npm install
 
-SELECT orders.*, customers.companyName FROM orders JOIN customers ON orders.customerID = customers.customerID;
+3. Start the development server:
 
+### npm start
 
-### 11. Outlook and Future Improvements
+Open http://localhost:3000 in the browser.
 
-Database Integration: Transition from CSV to SQL database for scalability.
-
-Advanced Query Parsing: Improve query interpretation using a SQL parsing library.
-
-User Authentication: Implement login for query history tracking.
-
-More Query Features: Implement DELETE, UPDATE, and INSERT operations.

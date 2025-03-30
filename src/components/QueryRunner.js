@@ -8,7 +8,6 @@ const QueryRunner = () => {
   const [error, setError] = useState("");
   const [showResult, setShowResult] = useState(false);
 
-  // ✅ Clear error when query is updated
   useEffect(() => {
     if (query.trim()) {
       setError("");

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { QueryContext } from "../context/QueryContext";
-import QueryEditorStyle from "../style/QueryEditorStyle.css"
+import "../style/QueryEditorStyle.css"
 
 const QueryEditor = () => {
   const { query, setQuery } = useContext(QueryContext);

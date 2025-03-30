@@ -11,7 +11,6 @@ export const QueryProvider = ({ children }) => {
   const [ordersData, setOrdersData] = useState([]);
 
   useEffect(() => {
-    // Simulate loading CSV data
     fetch("/orders.csv")
       .then((response) => response.text())
       .then((csvText) => {
@@ -24,17 +23,17 @@ export const QueryProvider = ({ children }) => {
     }, []);
 
 
-  const executeQuery = () => {
+    const executeQuery = () => {
     let filteredData = [...ordersData];
 
-if (!query || query.trim() === "") {
-    return;
-}
+    if (!query || query.trim() === "") {
+      return;
+    }
   
 
-if (!query || ordersData.length === 0) {
-  return ;
-} 
+    if (!query || ordersData.length === 0) {
+      return ;
+    } 
     if (/FROM\s+orders/i.test(query)) {
       filteredData = [...ordersData]; 
     } else {
@@ -55,14 +54,13 @@ if (!query || ordersData.length === 0) {
           value = value.replace(/'/g, "").trim();
       
           const columnKey = Object.keys(row).find(key => key.toLowerCase() === column.toLowerCase());
-if (!columnKey) return false; 
-let rowValue = row[columnKey]?.toString().trim();
-          // Convert numeric values
+          if (!columnKey) return false; 
+          let rowValue = row[columnKey]?.toString().trim();
           if (!isNaN(rowValue) && !isNaN(value)) {
             rowValue = parseFloat(rowValue);
             value = parseFloat(value);
           } else {
-            rowValue = rowValue.toLowerCase(); // Case insensitive for strings
+            rowValue = rowValue.toLowerCase(); 
             value = value.toLowerCase();
           }
       
@@ -106,7 +104,6 @@ if (orderMatch) {
   filteredData = filteredData.sort((a, b) => {
     let valA = a[column], valB = b[column];
 
-    // Convert to dates if needed
     if (!isNaN(Date.parse(valA)) && !isNaN(Date.parse(valB))) {
       valA = new Date(valA);
       valB = new Date(valB);

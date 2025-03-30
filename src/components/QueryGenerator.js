@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { QueryContext } from "../context/QueryContext";
-import "../style/QueryGeneratorStyle.css"; // Ensure styles are applied
+import "../style/QueryGeneratorStyle.css";
 
 const QueryGenerator = () => {
   const { setQuery } = useContext(QueryContext);
@@ -64,10 +64,8 @@ const QueryGenerator = () => {
 
       {showForm && (
         <>
-          {/* Overlay */}
           <div className="query-overlay" onClick={() => setShowForm(false)}></div>
 
-          {/* Popup Modal */}
           <div className="query-popup">
             <h3>Generate Your Query</h3>
             <button className="close-button" onClick={() => setShowForm(false)}>❌</button>
