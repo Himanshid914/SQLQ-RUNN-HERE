@@ -1,0 +1,32 @@
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #089233;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background-color:  #95ebbd;
+  }
+  
+  button:active {
+    background-color: #b5f4d2;
+  }
+  
+  button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  p {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  
