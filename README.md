@@ -11,9 +11,10 @@ The Orders dataset used in this application are sourced from the Northwind datas
 
 ### 3. Page Load Time
 
-Measured Load Time: 0.53s
+Measured Load Time: 0.33s
 
-<img width="399" alt="Load-Time" src="https://github.com/user-attachments/assets/040c6e58-4c6e-4602-b3cc-b102f98a6beb" />
+
+<img width="403" alt="LoadTime" src="https://github.com/user-attachments/assets/7b86209e-f9f9-4294-bb5d-4a006ba5c2dc" />
 
 
 Measurement Tool: Page Load Time Chrome Extension
