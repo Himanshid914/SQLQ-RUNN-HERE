@@ -113,4 +113,3 @@ SELECT * FROM orders WHERE shipCountry = 'France';
 ### npm start
 
 Open http://localhost:3000 in the browser.
-
