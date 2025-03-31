@@ -25,7 +25,13 @@ Measurement Tool: Page Load Time Chrome Extension
 
 The orders table stores order details.
 
-### 5. Tech Stack
+### 5. Architecture Diagram
+The architecture follows a client-side implementation using React.js. Below is the high-level structure:
+
+![Architecture](https://github.com/user-attachments/assets/2e18ce98-f8b6-46c9-bb03-d0f412c1b145)
+
+
+### Tech Stack
 
 Frontend: React.js, JavaScript, HTML, CSS
 
